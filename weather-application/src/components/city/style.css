@@ -1,0 +1,18 @@
+h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: .6rem;
+}
+
+i {
+    font-size: 1rem;
+}
+
+span {
+    margin: .6rem;
+}
+
+#country {
+    height: 15px;;
+}
