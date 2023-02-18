@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Form } from '../../components/form/Form'
 import { City } from '../../components/city/City'
@@ -9,22 +9,42 @@ import { Details } from '../../components/details/Details'
 import './style.css'
 
 function App() {
+  const [weatherData, setWeatherData] = useState()
   const [cityInputValue, setCityInputValue] = useState()
   const [city, setCity] = useState("Montes Claros")
-  const [country, setCountry] = useState("https://countryflagsapi.com/svg/bra")
+  const [country, setCountry] = useState("")
 
+  const apiKey = "YourAPIKey"
+  const apiCountryURL = "https://countryflagsapi.com/png/"
+  const apiWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityInputValue}&units=metric&appid=${apiKey}&lang=pt_br`;
+
+
+  // Functions
   function submitForm(e) {
     e.preventDefault();
-    
-    showWeatherData(cityInputValue)
 
+    renderWeatherData()
   }
 
-  const showWeatherData = (city) => {
-    console.log(city);
+  async function getWeatherData() {
+    const response = await fetch(apiWeatherURL);
+    const data = await response.json();
+
+    return data;
   }
 
-  const apiCountryURL = "https://countryflagsapi.com/png/"
+  async function renderWeatherData() {
+    const data = await getWeatherData()
+
+    setCity(data.name)
+    setCountry(`${apiCountryURL}${data.sys.country}`)
+
+  }
+  //
+
+  useEffect(() => {
+    renderWeatherData()
+  }, [city])
 
   return (
     
