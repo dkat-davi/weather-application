@@ -4,3 +4,8 @@
     align-items: center;
     margin: .6rem 0;
 }
+
+p#description {
+    font-weight: bold;
+    text-transform: capitalize;
+}

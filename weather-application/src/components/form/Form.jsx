@@ -9,12 +9,21 @@ export function Form( { functionSubmitForm, setCityInputValue} ) {
                 id='city-input'
                 type="text"
                 placeholder='Digite o nome da cidade'
+                
                 onChange={(event) => {
                     setCityInputValue(event.target.value)
                 }}
+                
+                onKeyUp={(event) => {    
+                    if (event.code === "Enter") {
+                        functionSubmitForm()
+                    }
+                }}
             />
 
-            <button id='search' onClick={functionSubmitForm}>
+            <button 
+                id='search' 
+                onClick={functionSubmitForm}>
                 <i className='fa-solid fa-magnifying-glass'></i>
             </button>
     

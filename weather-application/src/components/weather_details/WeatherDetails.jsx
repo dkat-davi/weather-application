@@ -1,12 +1,12 @@
 import './style.css'
 
-export function Details( { umidity, wind } ) {
+export function WeatherDetails( { humidity, wind } ) {
     return(
         <div id="details-container">
           
-          <p id="umidity">
+          <p id="humidity">
             <i className="fa-solid fa-droplet"></i>
-            <span>{ umidity }%</span>
+            <span>{ humidity }%</span>
           </p>
 
           <p className="wind">

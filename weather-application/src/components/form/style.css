@@ -18,4 +18,10 @@ button {
     border-radius: 4px;
 
     cursor: pointer;
+    transition: filter .3s ease-out;
+}
+
+button:hover {
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.212);
+    filter: brightness(110%);
 }

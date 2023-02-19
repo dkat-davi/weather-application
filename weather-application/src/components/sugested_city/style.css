@@ -1,0 +1,21 @@
+.sugested-city {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1.5rem;
+    width: 10rem;
+    height: 45px;
+    margin: 0 .5rem;
+    
+    background-color: #66b3dd;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: filter .3s ease-out;
+}
+
+.sugested-city:hover {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
+    filter: brightness(110%);
+}

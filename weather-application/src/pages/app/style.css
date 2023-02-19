@@ -37,14 +37,14 @@ h3 {
     text-align: center;
 }
 
-#details-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.loader {
+    border-top: 1px solid #fff;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
 }
 
-#details-container #umidity {
-    border-right: 1px solid #fff;
-    margin: .6rem;
-    padding: .6rem;
+.sugested-citys-container {
+    display: flex;
+    margin-bottom: 1rem;
 }
+

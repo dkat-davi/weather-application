@@ -1,37 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
+import { SugestedCity } from '../../components/sugested_city/SugestedCity'
 import { Form } from '../../components/form/Form'
 import { City } from '../../components/city/City'
 import { Temperature } from '../../components/temperature/Temperature'
-import { Description } from '../../components/description/Description'
-import { Details } from '../../components/details/Details'
+import { WeatherDescription } from '../../components/weather_description/WeatherDescription'
+import { WeatherDetails } from '../../components/weather_details/WeatherDetails'
 
 import './style.css'
 
 function App() {
-  const [weatherData, setWeatherData] = useState()
   const [cityInputValue, setCityInputValue] = useState()
   
-  const [city, setCity] = useState()
-  const [country, setCountry] = useState()
-  const [weatherDescription, setWeatherDescription] = useState()
+  const [cityName, setCityName] = useState()
+  const [countryCode, setCountryCode] = useState()
   const [temperature, setTemperature] = useState()
-  const [countryIcon, setcountryIcon] = useState()
+  const [weatherDescription, setWeatherDescription] = useState()
+  const [weatherIcon, setWeatherIcon] = useState("10d")
   const [humidity, setHumidity] = useState()
   const [windSpeed, setWindSpeed] = useState()
 
-  const apiKey = "4c5a344d8487aa60331a63c23cb533d6"
-  const apiCountryURL = "https://countryflagsapi.com/png/"
+  const weatherContainer = document.querySelector('#weather-data')
+  const loader = document.querySelector('.loader')
+
+  const apiKey = "YourKey"
   const apiWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityInputValue}&units=metric&appid=${apiKey}&lang=pt_br`;
 
 
   // Functions
-  function submitForm(e) {
-    e.preventDefault();
-
-    renderWeatherData()
-  }
-
   async function getWeatherData() {
     const response = await fetch(apiWeatherURL);
     const data = await response.json();
@@ -42,22 +38,23 @@ function App() {
   async function renderWeatherData() {
     const data = await getWeatherData()
 
-    setWeatherData(data)
-    setCity(data.name)
-    setCountry(`${apiCountryURL}${data.sys.country}`)
+    setCityName(data.name)
+    setCountryCode(data.sys.country)
     setTemperature(parseInt(data.main.temp))
     setWeatherDescription(data.weather[0].description)
-    setcountryIcon(data.weather[0].icon)
+    setWeatherIcon(data.weather[0].icon)
     setHumidity(data.main.humidity)
     setWindSpeed(data.wind.speed)
 
-    console.log(weatherData)
+    loader.classList.add("hide")
+    weatherContainer.classList.remove("hide")
   }
-  //
 
-  useEffect(() => {
+  function submitForm() {
+
     renderWeatherData()
-  }, [city])
+
+  }
 
   return (
     
@@ -68,16 +65,38 @@ function App() {
         functionSubmitForm={ submitForm }
         setCityInputValue={ setCityInputValue }
       />  
+      
+      <div className='loader'>
+            <div className="sugested-citys-container">
+                <SugestedCity value="Montes Claros"/>
+                <SugestedCity value="Olhos D'água"/>
+            </div>
+            <div className="sugested-citys-container">
+                <SugestedCity value="Tokyo"/>
+                <SugestedCity value="Montes Claros"/>
+            </div>
+            <div className="sugested-citys-container">
+                <SugestedCity value="Montes Claros"/>
+                <SugestedCity value="Montes Claros"/>
+            </div>
+        </div>
 
-      <div id="weather-data">
-        
-        <City cityName={city} countryImgURL={country}/>
+      <div className='hide' id="weather-data">
+
+
+        <City cityName={ cityName } countryCode={ countryCode }/>
 
         <Temperature temperature={ temperature } />
 
-        <Description description={ weatherDescription } icon_code={ countryIcon }/>
+        <WeatherDescription 
+          description={ weatherDescription } 
+          weather_icon_code={ weatherIcon }
+        />
         
-        <Details umidity={ humidity } wind={ windSpeed }/>
+        <WeatherDetails 
+          humidity={ humidity } 
+          wind={ windSpeed }
+        />
 
       </div>
     </div>

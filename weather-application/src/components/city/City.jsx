@@ -1,7 +1,8 @@
 import './style.css'
 
-export function City( { cityName, countryImgURL } ) {
-    
+export function City( { cityName, countryCode } ) {
+    const apiCountryURL = "https://countryflagsapi.com/png/"
+
     return (
         <h2>
             <i className="fa-solid fa-location-dot"></i> 
@@ -13,8 +14,8 @@ export function City( { cityName, countryImgURL } ) {
             <img 
                 id='country'
                 crossOrigin="anonymous" 
-                src={ countryImgURL } 
-                alt="Bandeira do país" 
+                src={ apiCountryURL + countryCode } 
+                alt="Bandeira do país referente a cidade" 
             />
         </h2>
     )
