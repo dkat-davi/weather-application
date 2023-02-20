@@ -16,7 +16,7 @@ export function Form( { functionSubmitForm, setCityInputValue} ) {
                 
                 onKeyUp={(event) => {    
                     if (event.code === "Enter") {
-                        functionSubmitForm()
+                        functionSubmitForm
                     }
                 }}
             />

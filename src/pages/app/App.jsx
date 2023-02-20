@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { SugestedCity } from '../../components/sugested_city/SugestedCity'
+import { Loader } from '../../components/loader/Loader'
 import { Form } from '../../components/form/Form'
 import { City } from '../../components/city/City'
 import { Temperature } from '../../components/temperature/Temperature'
@@ -23,20 +24,21 @@ function App() {
   const weatherContainer = document.querySelector('#weather-data')
   const loader = document.querySelector('.loader')
 
-  const apiKey = "YourKey"
-  const apiWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityInputValue}&units=metric&appid=${apiKey}&lang=pt_br`;
+  const apiKey = "YOURKEY"
+  
 
 
   // Functions
-  async function getWeatherData() {
+  async function getWeatherData(city) {
+    const apiWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}&lang=pt_br`;
     const response = await fetch(apiWeatherURL);
     const data = await response.json();
 
     return data;
   }
 
-  async function renderWeatherData() {
-    const data = await getWeatherData()
+  async function renderWeatherData(city) {
+    const data = await getWeatherData(city)
 
     setCityName(data.name)
     setCountryCode(data.sys.country)
@@ -50,9 +52,9 @@ function App() {
     weatherContainer.classList.remove("hide")
   }
 
-  function submitForm() {
+  function submitForm(city) {
 
-    renderWeatherData()
+    renderWeatherData(city)
 
   }
 
@@ -62,24 +64,9 @@ function App() {
       <h3>Confira o clima de uma cidade:</h3>
 
       <Form 
-        functionSubmitForm={ submitForm }
+        functionSubmitForm={ submitForm(cityInputValue) }
         setCityInputValue={ setCityInputValue }
       />  
-      
-      <div className='loader'>
-            <div className="sugested-citys-container">
-                <SugestedCity value="Montes Claros"/>
-                <SugestedCity value="Olhos D'água"/>
-            </div>
-            <div className="sugested-citys-container">
-                <SugestedCity value="Tokyo"/>
-                <SugestedCity value="Montes Claros"/>
-            </div>
-            <div className="sugested-citys-container">
-                <SugestedCity value="Montes Claros"/>
-                <SugestedCity value="Montes Claros"/>
-            </div>
-        </div>
 
       <div className='hide' id="weather-data">
 
