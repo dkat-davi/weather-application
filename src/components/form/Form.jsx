@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import './style.css'
 
-export function Form( { functionSubmitForm, setCityInputValue} ) {
+export function Form( { functionRenderData } ) {
+    const [inputValue, setInputValue] = useState()
 
     return(
         <div className="form-input-container flex">
@@ -11,19 +13,23 @@ export function Form( { functionSubmitForm, setCityInputValue} ) {
                 placeholder='Digite o nome da cidade'
                 
                 onChange={(event) => {
-                    setCityInputValue(event.target.value)
+                    setInputValue(event.target.value)
                 }}
-                
-                onKeyUp={(event) => {    
-                    if (event.code === "Enter") {
-                        functionSubmitForm
+
+                onKeyUp={(event) => {
+                    if(event.code === "Enter") 
+                    {
+                        functionRenderData(inputValue)
                     }
                 }}
+
             />
 
             <button 
                 id='search' 
-                onClick={functionSubmitForm}>
+                onClick={() => {
+                    functionRenderData(inputValue)
+                }}>
                 <i className='fa-solid fa-magnifying-glass'></i>
             </button>
     

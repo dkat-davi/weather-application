@@ -22,9 +22,8 @@ function App() {
   const [windSpeed, setWindSpeed] = useState()
 
   const weatherContainer = document.querySelector('#weather-data')
-  const loader = document.querySelector('.loader')
 
-  const apiKey = "YOURKEY"
+  const apiKey = "YourAPIKey"
   
 
 
@@ -47,28 +46,17 @@ function App() {
     setWeatherIcon(data.weather[0].icon)
     setHumidity(data.main.humidity)
     setWindSpeed(data.wind.speed)
-
-    loader.classList.add("hide")
-    weatherContainer.classList.remove("hide")
-  }
-
-  function submitForm(city) {
-
-    renderWeatherData(city)
-
   }
 
   return (
-    
     <div className="container">
       <h3>Confira o clima de uma cidade:</h3>
 
       <Form 
-        functionSubmitForm={ submitForm(cityInputValue) }
-        setCityInputValue={ setCityInputValue }
-      />  
+        functionRenderData={ renderWeatherData } 
+      />
 
-      <div className='hide' id="weather-data">
+      <div className='' id="weather-data">
 
 
         <City cityName={ cityName } countryCode={ countryCode }/>
