@@ -1,17 +1,16 @@
 import './style.css'
 
-export function SugestedCity( props ) {
-    const value = props.value
+export function SugestedCity( { city, functionClick } ) {
+    const cityName = city;
+
     return(
         <div 
             className='sugested-city'
             onClick={ () => {
-                props.functionSetCityInputValue
-                setTimeout(props.functionClick, 1000)
-                 
+                functionClick( cityName )
             }
         }>
-                { props.value }
+            { city }
         </div>
     )
 }

@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
-import { SugestedCity } from '../../components/sugested_city/SugestedCity'
 import { Loader } from '../../components/loader/Loader'
 import { Form } from '../../components/form/Form'
 import { City } from '../../components/city/City'
@@ -11,8 +10,6 @@ import { WeatherDetails } from '../../components/weather_details/WeatherDetails'
 import './style.css'
 
 function App() {
-  const [cityInputValue, setCityInputValue] = useState()
-  
   const [cityName, setCityName] = useState()
   const [countryCode, setCountryCode] = useState()
   const [temperature, setTemperature] = useState()
@@ -21,13 +18,11 @@ function App() {
   const [humidity, setHumidity] = useState()
   const [windSpeed, setWindSpeed] = useState()
 
-  const weatherContainer = document.querySelector('#weather-data')
+  const weatherContainerRef = useRef()
+  const loaderContainerRef = useRef()
 
   const apiKey = "YourAPIKey"
-  
 
-
-  // Functions
   async function getWeatherData(city) {
     const apiWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}&lang=pt_br`;
     const response = await fetch(apiWeatherURL);
@@ -38,7 +33,7 @@ function App() {
 
   async function renderWeatherData(city) {
     const data = await getWeatherData(city)
-
+      
     setCityName(data.name)
     setCountryCode(data.sys.country)
     setTemperature(parseInt(data.main.temp))
@@ -46,6 +41,13 @@ function App() {
     setWeatherIcon(data.weather[0].icon)
     setHumidity(data.main.humidity)
     setWindSpeed(data.wind.speed)
+
+    hideAppearDataContainer()
+  }
+
+  function hideAppearDataContainer() {
+    weatherContainerRef.current.classList.remove('hide'); 
+    loaderContainerRef.current.classList.add('hide'); 
   }
 
   return (
@@ -56,7 +58,15 @@ function App() {
         functionRenderData={ renderWeatherData } 
       />
 
-      <div className='' id="weather-data">
+      <div ref={ loaderContainerRef } >
+        < Loader
+          functionRenderData={renderWeatherData}
+        />
+      </div>
+
+      
+
+      <div ref={ weatherContainerRef } className='hide' id="weather-data">
 
 
         <City cityName={ cityName } countryCode={ countryCode }/>

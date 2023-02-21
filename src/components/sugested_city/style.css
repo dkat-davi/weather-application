@@ -2,10 +2,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
 
     padding: 1.5rem;
     width: 10rem;
-    height: 45px;
+    height: 40px;
     margin: 0 .5rem;
     
     background-color: #66b3dd;
