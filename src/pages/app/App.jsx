@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 
 import { Loader } from '../../components/loader/Loader'
@@ -13,6 +12,7 @@ import { Spinner } from '../../components/spinner/Spinner'
 import './style.css'
 
 function App() {
+  const apiKey = process.env.REACT_APP_OPEN_WEATHER_API_KEY;
 
   const [cityName, setCityName] = useState()
   const [countryCode, setCountryCode] = useState()
@@ -26,8 +26,6 @@ function App() {
   const weatherContainerRef = useRef()
   const loaderContainerRef = useRef()
   const error = useRef()
-
-  const apiKey = "4c5a344d8487aa60331a63c23cb533d6"
 
   async function getWeatherData(city) {
     const apiWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}&lang=pt_br`;
@@ -49,6 +47,7 @@ function App() {
       showError()
     }
     else {
+      console.log(apiKeyTest)
       setCityName(data.name)
       setCountryCode(data.sys.country)
       setTemperature(parseInt(data.main.temp))
