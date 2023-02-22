@@ -1,3 +1,4 @@
+
 import React, { useState, useRef } from 'react';
 
 import { Loader } from '../../components/loader/Loader'
@@ -12,6 +13,7 @@ import { Spinner } from '../../components/spinner/Spinner'
 import './style.css'
 
 function App() {
+
   const [cityName, setCityName] = useState()
   const [countryCode, setCountryCode] = useState()
   const [temperature, setTemperature] = useState()
@@ -25,7 +27,7 @@ function App() {
   const loaderContainerRef = useRef()
   const error = useRef()
 
-  const apiKey = "YourAPIKey"
+  const apiKey = "4c5a344d8487aa60331a63c23cb533d6"
 
   async function getWeatherData(city) {
     const apiWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}&lang=pt_br`;
