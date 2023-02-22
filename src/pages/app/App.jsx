@@ -25,7 +25,7 @@ function App() {
   const loaderContainerRef = useRef()
   const error = useRef()
 
-  const apiKey = "4c5a344d8487aa60331a63c23cb533d6"
+  const apiKey = "YourAPIKey"
 
   async function getWeatherData(city) {
     const apiWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}&lang=pt_br`;
