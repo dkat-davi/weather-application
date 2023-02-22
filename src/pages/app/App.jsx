@@ -7,6 +7,7 @@ import { Temperature } from '../../components/temperature/Temperature'
 import { WeatherDescription } from '../../components/weather_description/WeatherDescription'
 import { WeatherDetails } from '../../components/weather_details/WeatherDetails'
 import { Error } from '../../components/error/Error'
+import { Spinner } from '../../components/spinner/Spinner'
 
 import './style.css'
 
@@ -18,18 +19,23 @@ function App() {
   const [weatherIcon, setWeatherIcon] = useState("10d")
   const [humidity, setHumidity] = useState()
   const [windSpeed, setWindSpeed] = useState()
+  const [loading, setLoading] = useState(false)
 
   const weatherContainerRef = useRef()
   const loaderContainerRef = useRef()
   const error = useRef()
 
-  const apiKey = "YourAPIKey"
+  const apiKey = "4c5a344d8487aa60331a63c23cb533d6"
 
   async function getWeatherData(city) {
     const apiWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}&lang=pt_br`;
     
+    setLoading(true)
+
     const response = await fetch(apiWeatherURL);
     const data = await response.json();
+
+    setLoading(false)
 
     return data;
   }
@@ -73,18 +79,20 @@ function App() {
         functionRenderData={ renderWeatherData } 
       />
 
+      { loading && <Spinner />}
+
       <div ref={error} className="hide">
-        <Error />
+        {!loading && <Error />}
       </div>
 
       <div ref={ loaderContainerRef } >
-        < Loader
+        {!loading && 
+          < Loader
           functionRenderData={renderWeatherData}
-        />
+        />}
       </div>
 
       <div ref={ weatherContainerRef } className='hide' id="weather-data">
-
 
         <City cityName={ cityName } countryCode={ countryCode }/>
 
