@@ -1,5 +1,9 @@
 .form-input-container {
     max-width: 100%;
+
+    border-bottom: 2px solid #c4c4c4;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
 }
 
 input {

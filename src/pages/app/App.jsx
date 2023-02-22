@@ -6,6 +6,7 @@ import { City } from '../../components/city/City'
 import { Temperature } from '../../components/temperature/Temperature'
 import { WeatherDescription } from '../../components/weather_description/WeatherDescription'
 import { WeatherDetails } from '../../components/weather_details/WeatherDetails'
+import { Error } from '../../components/error/Error'
 
 import './style.css'
 
@@ -20,11 +21,13 @@ function App() {
 
   const weatherContainerRef = useRef()
   const loaderContainerRef = useRef()
+  const error = useRef()
 
   const apiKey = "YourAPIKey"
 
   async function getWeatherData(city) {
     const apiWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}&lang=pt_br`;
+    
     const response = await fetch(apiWeatherURL);
     const data = await response.json();
 
@@ -33,21 +36,33 @@ function App() {
 
   async function renderWeatherData(city) {
     const data = await getWeatherData(city)
-      
-    setCityName(data.name)
-    setCountryCode(data.sys.country)
-    setTemperature(parseInt(data.main.temp))
-    setWeatherDescription(data.weather[0].description)
-    setWeatherIcon(data.weather[0].icon)
-    setHumidity(data.main.humidity)
-    setWindSpeed(data.wind.speed)
+    
+    if (data.cod == 404) {
+      showError()
+    }
+    else {
+      setCityName(data.name)
+      setCountryCode(data.sys.country)
+      setTemperature(parseInt(data.main.temp))
+      setWeatherDescription(data.weather[0].description)
+      setWeatherIcon(data.weather[0].icon)
+      setHumidity(data.main.humidity)
+      setWindSpeed(data.wind.speed)
 
-    hideAppearDataContainer()
+      hideAppearDataContainer() 
+    }
+  }
+
+  function showError() {
+    error.current.classList.remove('hide'); 
+    weatherContainerRef.current.classList.add('hide'); 
+    loaderContainerRef.current.classList.add('hide'); 
   }
 
   function hideAppearDataContainer() {
     weatherContainerRef.current.classList.remove('hide'); 
     loaderContainerRef.current.classList.add('hide'); 
+    error.current.classList.add('hide'); 
   }
 
   return (
@@ -58,13 +73,15 @@ function App() {
         functionRenderData={ renderWeatherData } 
       />
 
+      <div ref={error} className="hide">
+        <Error />
+      </div>
+
       <div ref={ loaderContainerRef } >
         < Loader
           functionRenderData={renderWeatherData}
         />
       </div>
-
-      
 
       <div ref={ weatherContainerRef } className='hide' id="weather-data">
 
