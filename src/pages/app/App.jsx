@@ -1,3 +1,4 @@
+import process from "process";
 import React, { useState, useRef } from 'react';
 
 import { Loader } from '../../components/loader/Loader'
@@ -12,7 +13,7 @@ import { Spinner } from '../../components/spinner/Spinner'
 import './style.css'
 
 function App() {
-  const apiKey = process.env.REACT_APP_OPEN_WEATHER_API_KEY;
+  const apiKey = "4c5a344d8487aa60331a63c23cb533d6";
 
   const [cityName, setCityName] = useState()
   const [countryCode, setCountryCode] = useState()
@@ -43,11 +44,11 @@ function App() {
   async function renderWeatherData(city) {
     const data = await getWeatherData(city)
     
-    if (data.cod == 404) {
+    if (data.cod == 404 || data.cod == 400) {
       showError()
     }
     else {
-      console.log(apiKeyTest)
+      console.log(process.env.REACT_APP_API_KEY)  
       setCityName(data.name)
       setCountryCode(data.sys.country)
       setTemperature(parseInt(data.main.temp))
