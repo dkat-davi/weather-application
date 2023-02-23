@@ -71,11 +71,9 @@ function App() {
     error.current.classList.add('hide'); 
   }
 
-  const teste = "Confira o clima de uma cidade:"
-
   return (
     <div className="container">
-      <h3>{}</h3>
+      <h3>Confira o clima de uma cidade:</h3>
 
       <Form 
         functionRenderData={ renderWeatherData } 
