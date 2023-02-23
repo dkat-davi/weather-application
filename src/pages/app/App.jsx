@@ -1,4 +1,3 @@
-import process from "process";
 import React, { useState, useRef } from 'react';
 
 import { Loader } from '../../components/loader/Loader'
@@ -13,7 +12,7 @@ import { Spinner } from '../../components/spinner/Spinner'
 import './style.css'
 
 function App() {
-  const apiKey = "4c5a344d8487aa60331a63c23cb533d6";
+  const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
 
   const [cityName, setCityName] = useState()
   const [countryCode, setCountryCode] = useState()
@@ -48,7 +47,6 @@ function App() {
       showError()
     }
     else {
-      console.log(process.env.REACT_APP_API_KEY)  
       setCityName(data.name)
       setCountryCode(data.sys.country)
       setTemperature(parseInt(data.main.temp))
@@ -73,9 +71,11 @@ function App() {
     error.current.classList.add('hide'); 
   }
 
+  const teste = "Confira o clima de uma cidade:"
+
   return (
     <div className="container">
-      <h3>Confira o clima de uma cidade:</h3>
+      <h3>{}</h3>
 
       <Form 
         functionRenderData={ renderWeatherData } 
