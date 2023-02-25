@@ -1,4 +1,4 @@
-<h1 align="center">Weather Application</h1>
+<h1 align="center">⛅ Weather Application</h1>
 
 <div style="display: inline_block">
     <a href="https://github.com/dkat-davi/Mario-Game/blob/main/LICENSE" target="_blank">
