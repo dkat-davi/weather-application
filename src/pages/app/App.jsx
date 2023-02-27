@@ -73,7 +73,7 @@ function App() {
 
   return (
     <div className="container">
-      <h3>Confira o clima de uma cidade:</h3>
+
 
       <Form 
         functionRenderData={ renderWeatherData } 
