@@ -2,8 +2,6 @@ import React, { useState, useRef } from 'react';
 
 import { Loader } from '../../components/loader/Loader'
 import { Form } from '../../components/form/Form'
-import { City } from '../../components/city/City'
-import { Temperature } from '../../components/temperature/Temperature'
 import { WeatherDescription } from '../../components/weather_description/WeatherDescription'
 import { WeatherDetails } from '../../components/weather_details/WeatherDetails'
 import { Error } from '../../components/error/Error'
@@ -94,11 +92,10 @@ function App() {
 
       <div ref={ weatherContainerRef } className='hide' id="weather-data">
 
-        <City cityName={ cityName } countryCode={ countryCode }/>
-
-        <Temperature temperature={ temperature } />
-
         <WeatherDescription 
+          cityName={ cityName } 
+          countryCode={ countryCode }
+          temperature={ temperature }
           description={ weatherDescription } 
           weather_icon_code={ weatherIcon }
         />

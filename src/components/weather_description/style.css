@@ -2,10 +2,51 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     margin: .6rem 0;
 }
 
-p#description {
-    font-weight: bold;
-    text-transform: capitalize;
+.city h2 i{
+    font-size: 3.8rem;
 }
+
+.city h2 span{
+    font-weight: 700;
+    font-size: 3.3rem;
+    margin: 0 2rem 0 1rem;
+}
+
+.city h2 #country{
+    width: 3.7rem;
+    height: auto;
+}
+
+#temperature {
+    font-weight: 700;
+    font-size: 14.5rem;
+
+    background-clip: text;
+    -webkit-background-clip: text; 
+    color: transparent;
+    background-image: linear-gradient(180deg, #0066ff, #32a9ff);
+}
+
+.weather-description {
+    position: relative;
+}
+
+.weather-description img{
+    top: 6rem;
+    position: absolute;
+    width: 14rem;
+}
+
+p#description {
+    color: #CAE6FF;
+    font-weight: 700;
+    font-size: 2.5rem;
+    text-transform: capitalize;
+
+    transform: translateY(-1rem);
+}
+
